@@ -9,6 +9,11 @@ use TiendaNube\Checkout\Service\Shipping\AddressService;
 
 class CheckoutController extends AbstractController
 {
+
+    public function getStore():Store{
+        return new Store();
+    }
+
     /**
      * Returns the address to be auto-fill the checkout form
      *
@@ -30,15 +35,18 @@ class CheckoutController extends AbstractController
         // filtering and sanitizing input
         $rawZipcode = preg_replace("/[^\d]/","",$zipcode);
 
-        // getting address by zipcode
-        $address = $addressService->getAddressByZip($rawZipcode);
+        $store = $this->getStore();
 
-        // checking the result
-        if (!is_null($address)) {
-            return $this->json($address);
+        if($store->isBetaTester()){
+            $address = $addressService->getAddressByZipNew($rawZipcode);
+        }else{
+            $address = $addressService->getAddressByZip($rawZipcode);
         }
 
-        // returning the error when not found
-        return $this->json(['error'=>'The requested zipcode was not found.'],404);
+        if (!is_null($address['json'])) {
+            return $this->json($address['json']);
+        }
+
+        return $this->json(['error'=>$address['error']],$address['status_code']);
     }
 }

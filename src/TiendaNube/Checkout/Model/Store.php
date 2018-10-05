@@ -40,6 +40,15 @@ class Store
     private $betaTester = false;
 
     /**
+     * Set the store's id
+     *
+     * @param int $id
+     */
+    public function setId(int $id):void {
+        $this->id = $id;
+    }
+
+    /**
      * Get the current store ID
      *
      * @return int
