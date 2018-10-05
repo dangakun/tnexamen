@@ -1,0 +1,25 @@
+{
+    "name": "tiendanube/php-integration-engineer-test",
+    "description": "This is the Tienda Nube's integration engineer interview test",
+    "keywords": ["tiendanube","php","engineer","test"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Lucas Mendes",
+            "email": "lucas@tiendanube.com"
+        }
+    ],
+    "require": {
+        "psr/http-message": "^1.0",
+        "psr/container": "^1.0",
+        "psr/log": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "src/"
+        }
+    }
+}
